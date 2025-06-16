@@ -1,361 +1,187 @@
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Reset + base */
+* { margin:0; padding:0; box-sizing:border-box; }
 body {
   font-family: Arial, sans-serif;
-  background: #f2f2f2;
-  color: #333;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  padding: 2rem;
-  
+  background:#f2f2f2; color:#333;
+  display:flex; justify-content:center; align-items:flex-start;
+  min-height:100vh; padding:2rem;
+  transition: background-color .4s, color .4s;
 }
-body,
-.app,
-#todo-input,
-#add-btn,
-.todo-item,
-.filter,
-#theme-toggle {
-  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
-}
-
-/* App Container */
+/* App Wrapper */
 .app {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 500px;
+  background:#fff; padding:2rem;
+  border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,.1);
+  width:100%; max-width:600px;
 }
 
-/* Header */
-.app h1 {
-  text-align: center;
-  margin-bottom: 1rem;
+/* Greeting + Title */
+#user-greeting {
+  text-align:center; font-size:1.2rem; margin-bottom:.5rem;
+  color:#555;
+}
+#app-title {
+  text-align:center; font-size:2rem; margin-bottom:1rem;
+  letter-spacing:1px;
 }
 
-/* Input Section */
+/* Input row */
 .input-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  display:flex; flex-wrap:wrap; gap:.5rem;
+  margin-bottom:.5rem;
 }
-.input-container input[type="text"],
-.input-container input[type="date"],
+/* Fields/buttons */
+.input-container input,
 .input-container select {
-  flex: 1;
-  padding: 0.7rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  flex:1; padding:.7rem; font-size:1rem;
+  border:1px solid #ccc; border-radius:8px;
 }
-.input-container button {
-  padding: 0.7rem 1.2rem;
-  border-radius: 8px;
-  border: none;
-  background: #28a745;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-.input-spacer {
-  height: 10px;
-}
-#todo-input {
-  flex: 1;
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-}
-
 #add-btn {
-  padding: 0.75rem 1.2rem;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s ease;
+  padding:.7rem 1.2rem; background:#007bff; color:#fff;
+  border:none; border-radius:8px; font-weight:bold;
+  cursor:pointer; transition:background .3s;
 }
+#add-btn:hover { background:#0056b3; }
 
-#add-btn:hover {
-  background: #0056b3;
+/* Spacer */
+.input-spacer { height:10px; }
+
+/* Progress */
+#progress-container {
+  width:100%; height:10px; background:#e0e0e0;
+  border-radius:10px; overflow:hidden; margin-bottom:1rem;
+}
+#progress-bar {
+  height:100%; width:0;
+  background:linear-gradient(to right,#007bff,#28a745);
+  transition:width .3s ease-in-out;
+}
+#motivation {
+  text-align:center; font-weight:bold; margin-top:.5rem;
 }
 
 /* Filters */
 .filters {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
+  display:flex; justify-content:space-between;
+  margin-bottom:1rem;
 }
-
 .filter {
-  padding: 0.5rem 1rem;
-  border: none;
-  background: #eee;
-  cursor: pointer;
-  border-radius: 6px;
+  padding:.5rem 1rem; border:none; background:#eee;
+  cursor:pointer; border-radius:6px;
 }
-
 .filter.active {
-  background: #007bff;
-  color: white;
+  background:#007bff; color:#fff;
 }
 
-/* Todo List */
-#todo-list {
-  list-style: none;
-}
-
+/* To-do items */
+#todo-list { list-style:none; }
 .todo-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #fafafa;
-  margin-bottom: 0.5rem;
-  padding: 0.75rem;
-  border-radius: 6px;
-  transition: background 0.2s;
+  display:flex; align-items:center; background:#fafafa;
+  margin-bottom:.5rem; padding:.75rem; border-radius:6px;
+  cursor:grab; transition:background .2s;
 }
-
 .todo-item.completed {
-  text-decoration: line-through;
-  opacity: 0.6;
+  text-decoration:line-through; opacity:.6;
 }
-
 .todo-item button {
-  background: transparent;
-  border: none;
-  color: #d11a2a;
-  font-size: 1.1rem;
-  cursor: pointer;
+  background:transparent; border:none; font-size:1.1rem;
+  color:#d11a2a; cursor:pointer;
 }
-/* === THEME TOGGLE === */
-#theme-toggle {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  padding: 0.5rem 1rem;
-  border: none;
-  background: #222;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background 0.3s;
-}
+.drag-handle { margin-right:.5rem; font-size:1.2rem; color:#aaa; }
 
-#theme-toggle:hover {
-  background: #444;
-}
-
-/* === DARK MODE === */
+/* Dark mode */
 body.dark {
-  background: #121212;
-  color: #e0e0e0;
+  background:#121212; color:#e0e0e0;
 }
+body.dark .app { background:#1f1f1f; box-shadow:0 4px 12px rgba(255,255,255,.05); }
+body.dark input, body.dark select {
+  background:#2c2c2c; color:#fff; border:1px solid #555;
+}
+body.dark #add-btn { background:#28a745; }
+body.dark #add-btn:hover { background:#218838; }
+body.dark .filter { background:#333; color:#ccc; }
+body.dark .filter.active { background:#28a745; color:#fff; }
+body.dark .todo-item { background:#2a2a2a; }
+body.dark .todo-item button { color:#ff6666; }
+body.dark #theme-toggle { background:#444; }
 
-body.dark .app {
-  background: #1f1f1f;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
-}
-
-body.dark #todo-input {
-  background: #2c2c2c;
-  border: 1px solid #555;
-  color: #fff;
-}
-
-body.dark #add-btn {
-  background: #28a745;
-}
-
-body.dark #add-btn:hover {
-  background: #218838;
-}
-
-body.dark .filter {
-  background: #333;
-  color: #ccc;
-}
-
-body.dark .filter.active {
-  background: #28a745;
-  color: white;
-}
-
-body.dark .todo-item {
-  background: #2a2a2a;
-}
-
-body.dark .todo-item button {
-  color: #ff6666;
-}
-.edit-input {
-  flex: 1;
-  padding: 0.5rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-.todo-item {
-  cursor: grab;
-}
-.drag-handle {
-  font-size: 1.2rem;
-  margin-right: 0.5rem;
-  cursor: grab;
-  color: #aaa;
-  user-select: none;
-}
-body.dark .drag-handle {
-  color: #666;
-}
-.input-container input[type="date"],
-.input-container select {
-  padding: 0.6rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
-#progress-container {
-  height: 10px;
-  background: #e0e0e0;
-  border-radius: 10px;
-  margin-bottom: 1rem;
-  overflow: hidden;
-}
-
-#progress-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(to right, #007bff, #28a745);
-  transition: width 0.3s ease-in-out;
-}
-.progress-wrapper {
-  margin: 1rem 0;
-}
-
-#progress-container {
-  width: 100%;
-  height: 10px;
-  background: #444;
-  border-radius: 8px;
-  overflow: hidden;
-}
-#progress-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(to right, #28a745, #007bff);
-  transition: width 0.3s ease-in-out;
-}
-/* Zen Mode */
-body.theme-focus {
-  background: #e8f5e9;
-  color: #2e7d32;
-}
-
-body.theme-focus .app {
-  background: #ffffff;
-}
-
-body.theme-focus .todo-item {
-  background: #e0f2f1;
-}
-
-/* Hype Mode */
+/* Mood themes inherit from body theme-... */
+body.theme-focus { background:#e8f5e9; color:#2e7d32; }
+body.theme-focus .todo-item { background:#e0f2f1; }
 body.theme-hype {
-  background: linear-gradient(120deg, #ff6f00, #ffca28);
-  color: #000;
+  background:linear-gradient(120deg,#ff6f00,#ffca28); color:#000;
 }
-
-body.theme-hype .app {
-  background: #fff3e0;
-}
-
-body.theme-hype .todo-item {
-  background: #ffd180;
-}
-
-/* Hacker Mode */
+body.theme-hype .app { background:#fff3e0; }
+body.theme-hype .todo-item { background:#ffd180; }
 body.theme-hacker {
-  background: #000;
-  color: #00ff00;
+  background:#000; color:#0f0;
 }
-
 body.theme-hacker .app,
-body.theme-hacker .todo-item {
-  background: #111;
-}
-
-/* Flirty Mode */
-body.theme-flirty {
-  background: #ffe6f0;
-  color: #c2185b;
-}
-
-body.theme-flirty .app,
-body.theme-flirty .todo-item {
-  background: #f8bbd0;
-}
-select {
-  padding: 0.6rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  background-color: white;
-  cursor: pointer;
-}
-
-body.dark select {
-  background-color: #2c2c2c;
-  color: white;
-  border: 1px solid #555;
-}
-#app-title {
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #333;
-  letter-spacing: 1px;
-}
-
-body.dark #app-title {
-  color: #fff;
-}
-body.theme-hacker #app-title {
-  color: #00ff00;
-  text-shadow: 0 0 4px #00ff00, 0 0 10px #00ff00;
-  font-family: 'Courier New', Courier, monospace;
-  letter-spacing: 2px;
-  font-weight: bold;
-}
-body.theme-hacker {
-  background: #000;
-  color: #00ff00;
-}
-
+body.theme-hacker .todo-item { background:#111; }
 body.theme-hacker input,
 body.theme-hacker select,
 body.theme-hacker button {
-  background-color: #000;
-  color: #00ff00;
-  border: 1px solid #00ff00;
-  font-family: monospace;
+  background:#000; color:#0f0; border:1px solid #0f0;
+  font-family:monospace;
+}
+/* Make calendar icon visible in hacker mode */
+body.theme-hacker input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) brightness(2);
 }
 
-body.theme-hacker .todo-item {
-  background-color: #111;
+/* Flirty */
+body.theme-flirty {
+  background:#ffe6f0; color:#c2185b;
+}
+body.theme-flirty .app,
+body.theme-flirty .todo-item {
+  background:#f8bbd0;
+}
+
+/* Daily dose banner */
+.daily-dose {
+  width:100%; overflow:hidden; white-space:nowrap;
+  font-weight:bold; margin-top:1rem; border-top:1px solid #ccc;
+  padding-top:.5rem;
+}
+.daily-dose-text {
+  display:inline-block; padding-left:100%;
+  animation:scroll-left 15s linear infinite;
+}
+@keyframes scroll-left {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Theme toggle button */
+#theme-toggle {
+  position:absolute; top:1rem; right:1rem;
+  padding:.5rem 1rem; border:none; background:#222;
+  color:#fff; border-radius:8px; cursor:pointer;
+  transition: background .3s;
+}
+#theme-toggle:hover { background:#444; }
+/* Style for the “Choose Mood” dropdown */
+#theme-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23666'/%3E%3C/svg%3E") no-repeat right 1rem center;
+  background-size: 0.6rem;
+  cursor: pointer;
+  transition: border-color 0.3s, background-color 0.3s;
+  margin-bottom: 1rem;
+}
+
+#theme-select:hover {
+  border-color: #007bff;
+}
+
+body.dark #theme-select {
+  background: #2c2c2c url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23aaa'/%3E%3C/svg%3E") no-repeat right 1rem center;
+  color: #fff;
+  border: 1px solid #555;
 }
