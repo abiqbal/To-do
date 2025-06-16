@@ -7,48 +7,58 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-
 <body>
   <button id="theme-toggle">🌙 Dark Mode</button>
   <div class="app">
+    <!-- Hyped Greeting -->
+    <h2 id="user-greeting"></h2>
+    <!-- Main Title / Mode Name -->
     <h1 id="app-title">🚀 SlayList</h1>
+
+    <!-- Mood Picker -->
     <select id="theme-select" style="margin-bottom: 1rem;">
-  <option value="">🧠 Choose Mood</option>
-  <option value="theme-focus">🧘 Zen Mode</option>
-  <option value="theme-hype">⚡ Hype Mode</option>
-  <option value="theme-hacker">💻 Hacker Mode</option>
-  <option value="theme-flirty">💖 Flirty Mode</option>
-</select>
+      <option value="">🧠 Choose Mood</option>
+      <option value="theme-focus">🧘 Zen Mode</option>
+      <option value="theme-hype">⚡ Hype Mode</option>
+      <option value="theme-hacker">💻 Hacker Mode</option>
+      <option value="theme-flirty">💖 Flirty Mode</option>
+    </select>
 
-<!-- INPUT ROW -->
-<div class="input-container">
-  <input type="text" id="todo-input" placeholder="Enter a task..." />
-  <input type="date" id="todo-date" />
-  <select id="todo-category">
-    <option value="🧠 Focus">🧠 Focus</option>
-    <option value="💪 Fitness">💪 Fitness</option>
-    <option value="🛒 Shopping">🛒 Shopping</option>
-    <option value="🧘 Chill">🧘 Chill</option>
-  </select>
-  <button id="add-btn">Add</button>
-</div>
-
-<!-- SPACING SEPARATOR -->
-<div class="input-spacer"></div>
-
-<!-- PROGRESS BAR UNDERNEATH -->
-<div id="progress-container">
-  <div id="progress-bar"></div>
-  <p id="motivation" style="text-align:center; font-weight:bold; margin: 0.5rem 0;"></p>
-
-</div>
-
-    <div class="filters">
-      <button class="filter" data-filter="all">All</button>
-      <button class="filter" data-filter="active">Active</button>
-      <button class="filter" data-filter="completed">Completed</button>
+    <!-- INPUT ROW -->
+    <div class="input-container">
+      <input type="text" id="todo-input" placeholder="Enter a task..." />
+      <input type="date" id="todo-date" />
+      <select id="todo-category">
+        <option value="🧠 Focus">🧠 Focus</option>
+        <option value="💪 Fitness">💪 Fitness</option>
+        <option value="🛒 Shopping">🛒 Shopping</option>
+        <option value="🧘 Chill">🧘 Chill</option>
+      </select>
+      <button id="add-btn">Add</button>
     </div>
+
+    <div class="input-spacer"></div>
+
+    <!-- PROGRESS BAR -->
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+      <p id="motivation"></p>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters">
+      <button class="filter active" data-filter="all">All</button>
+      <button class="filter"     data-filter="active">Active</button>
+      <button class="filter"     data-filter="completed">Completed</button>
+    </div>
+
+    <!-- TODO LIST -->
     <ul id="todo-list"></ul>
+
+    <!-- Daily Dose Banner -->
+    <div id="daily-dose" class="daily-dose">
+      Daily Dose: <span id="daily-dose-text"></span>
+    </div>
   </div>
 
   <script src="script.js"></script>
