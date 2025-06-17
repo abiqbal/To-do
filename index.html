@@ -3,64 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IQ's Hitlist</title>
-  <link rel="stylesheet" href="style.css">
+  <title>SlayList</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 <body>
-  <button id="theme-toggle">🌙 Dark Mode</button>
+  <button id="theme-toggle" class="icon-button">
+    <i data-feather="moon"></i> Dark Mode
+  </button>
+  <select id="theme-select" class="top-left-select">
+    <option value="">🧠 Mood</option>
+    <option value="theme-focus">Zen Mode</option>
+    <option value="theme-hype">Hype Mode</option>
+    <option value="theme-hacker">Hacker Mode</option>
+    <option value="theme-flirty">💖 RizzList</option>
+  </select>
+
   <div class="app">
-    <!-- Hyped Greeting -->
-    <h2 id="user-greeting"></h2>
-    <!-- Main Title / Mode Name -->
     <h1 id="app-title">🚀 SlayList</h1>
 
-    <!-- Mood Picker -->
-    <select id="theme-select" style="margin-bottom: 1rem;">
-      <option value="">🧠 Choose Mood</option>
-      <option value="theme-focus">🧘 Zen Mode</option>
-      <option value="theme-hype">⚡ Hype Mode</option>
-      <option value="theme-hacker">💻 Hacker Mode</option>
-      <option value="theme-flirty">💖 Flirty Mode</option>
-    </select>
-
-    <!-- INPUT ROW -->
     <div class="input-container">
       <input type="text" id="todo-input" placeholder="Enter a task..." />
       <input type="date" id="todo-date" />
       <select id="todo-category">
-        <option value="🧠 Focus">🧠 Focus</option>
-        <option value="💪 Fitness">💪 Fitness</option>
-        <option value="🛒 Shopping">🛒 Shopping</option>
-        <option value="🧘 Chill">🧘 Chill</option>
-      </select>
-      <button id="add-btn">Add</button>
+        <option value="Focus">Focus</option> <option value="Fitness">Fitness</option> <option value="Shopping">Shopping</option> <option value="Chill">Chill</option> </select>
+      <button id="add-btn" class="primary-button">Add</button>
     </div>
 
-    <div class="input-spacer"></div>
-
-    <!-- PROGRESS BAR -->
     <div id="progress-container">
       <div id="progress-bar"></div>
-      <p id="motivation"></p>
     </div>
 
-    <!-- FILTERS -->
+    <p id="motivation" class="motivation-text"></p>
+
     <div class="filters">
-      <button class="filter active" data-filter="all">All</button>
-      <button class="filter"     data-filter="active">Active</button>
-      <button class="filter"     data-filter="completed">Completed</button>
+      <button class="filter button-secondary" data-filter="all">All</button>
+      <button class="filter button-secondary active" data-filter="active">Active</button>
+      <button class="filter button-secondary" data-filter="completed">Completed</button>
     </div>
 
-    <!-- TODO LIST -->
     <ul id="todo-list"></ul>
-
-    <!-- Daily Dose Banner -->
-    <div id="daily-dose" class="daily-dose">
-      Daily Dose: <span id="daily-dose-text"></span>
-    </div>
   </div>
 
-  <script src="script.js"></script>
+  <div id="daily-dose" class="daily-dose">
+    <marquee id="daily-dose-text"></marquee>
+  </div>
+
+  <script>
+    feather.replace()
+  </script>
 </body>
 </html>
