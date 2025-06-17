@@ -1,187 +1,460 @@
-/* Reset + base */
-* { margin:0; padding:0; box-sizing:border-box; }
+/* CSS Variables for Theming */
+:root {
+  /* Light Mode Palette */
+  --color-primary: #6B4EE6; /* A deeper, richer purple */
+  --color-primary-dark: #5A3EC0; /* Darker primary for hover/active */
+  --color-accent: #3EC06B; /* A vibrant green for success/highlight */
+  --color-text-dark: #2D3748; /* Dark gray for primary text */
+  --color-text-light: #718096; /* Lighter gray for secondary text */
+  --color-background-light: #F8F9FA; /* Very light, almost white background */
+  --color-card-background: #FFFFFF; /* Pure white for cards */
+  --color-border: #E2E8F0; /* Light gray for borders/separators */
+  --color-danger: #EF4444; /* Red for delete/error */
+  --color-success: #3EC06B; /* Same as accent for success */
+  --color-input-background: #F0F2F5; /* Light gray for input fields */
+}
+
+body.dark {
+  /* Dark Mode Palette */
+  --color-primary: #8A70F9;
+  --color-primary-dark: #775EDE;
+  --color-accent: #5EDEB7;
+  --color-text-dark: #CBD5E0;
+  --color-text-light: #A0AEC0;
+  --color-background-light: #1A202C;
+  --color-card-background: #2D3748;
+  --color-border: #4A5568;
+  --color-danger: #F87171;
+  --color-success: #5EDEB7;
+  --color-input-background: #4A5568;
+}
+
+/* Base Styles */
 body {
-  font-family: Arial, sans-serif;
-  background:#f2f2f2; color:#333;
-  display:flex; justify-content:center; align-items:flex-start;
-  min-height:100vh; padding:2rem;
-  transition: background-color .4s, color .4s;
+  font-family: 'Inter', sans-serif; /* Body text font */
+  margin: 0;
+  background-color: var(--color-background-light);
+  color: var(--color-text-dark);
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; /* Add some padding around the app */
+  box-sizing: border-box; /* Include padding in element's total width and height */
 }
-/* App Wrapper */
+
 .app {
-  background:#fff; padding:2rem;
-  border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,.1);
-  width:100%; max-width:600px;
+  width: 100%;
+  max-width: 600px; /* Slightly adjusted max-width for better fit */
+  background: var(--color-card-background);
+  padding: 2.5rem; /* Increased padding */
+  border-radius: 1rem; /* More rounded corners */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.04); /* More pronounced, layered shadow */
+  transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  position: relative; /* For absolute positioning of some elements within */
 }
 
-/* Greeting + Title */
-#user-greeting {
-  text-align:center; font-size:1.2rem; margin-bottom:.5rem;
-  color:#555;
-}
-#app-title {
-  text-align:center; font-size:2rem; margin-bottom:1rem;
-  letter-spacing:1px;
+h1 {
+  font-family: 'Poppins', sans-serif; /* Heading font */
+  text-align: center;
+  font-size: 2.25rem; /* Larger title */
+  margin-bottom: 2rem; /* More space below title */
+  color: var(--color-primary); /* Use primary color for title */
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem; /* Space between rocket icon and text */
 }
 
-/* Input row */
+/* Top Left/Right Controls */
+#theme-toggle,
+#theme-select.top-left-select {
+  position: absolute;
+  z-index: 10; /* Ensure they are above other content */
+}
+
+#theme-toggle {
+  top: 1.5rem;
+  right: 1.5rem;
+  background: var(--color-input-background); /* Subtle background for toggle */
+  border: 1px solid var(--color-border);
+  color: var(--color-text-dark);
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+#theme-toggle:hover {
+  background: var(--color-border);
+}
+body.dark #theme-toggle {
+  background: var(--color-border); /* Use border color for dark mode toggle background */
+  color: var(--color-text-dark); /* Dark mode toggle text needs to be light */
+}
+body.dark #theme-toggle:hover {
+  background: var(--color-text-light); /* Lighter hover in dark mode */
+}
+
+
+#theme-select.top-left-select {
+  top: 1.5rem;
+  left: 1.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  background-color: var(--color-input-background);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-dark);
+  appearance: none; /* Hide default select arrow */
+  /* Custom arrow for select dropdown */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232D3748' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.25rem auto;
+  cursor: pointer;
+}
+body.dark #theme-select.top-left-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23CBD5E0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-color: var(--color-input-background);
+  color: var(--color-text-dark);
+}
+
+
+/* Input Container */
 .input-container {
-  display:flex; flex-wrap:wrap; gap:.5rem;
-  margin-bottom:.5rem;
+  display: grid; /* Use CSS Grid for better control */
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Responsive columns */
+  gap: 1rem; /* More generous gap */
+  margin-bottom: 2rem;
+  align-items: center;
 }
-/* Fields/buttons */
-.input-container input,
-.input-container select {
-  flex:1; padding:.7rem; font-size:1rem;
-  border:1px solid #ccc; border-radius:8px;
-}
-#add-btn {
-  padding:.7rem 1.2rem; background:#007bff; color:#fff;
-  border:none; border-radius:8px; font-weight:bold;
-  cursor:pointer; transition:background .3s;
-}
-#add-btn:hover { background:#0056b3; }
 
-/* Spacer */
-.input-spacer { height:10px; }
+input[type="text"],
+input[type="date"],
+select {
+  padding: 0.8rem 1rem; /* Increased padding */
+  font-size: 1rem; /* Slightly larger font */
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem; /* More rounded inputs */
+  background-color: var(--color-input-background);
+  color: var(--color-text-dark);
+  outline: none; /* Remove default outline */
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(107, 78, 230, 0.2); /* Subtle focus ring */
+}
+body.dark input[type="text"],
+body.dark input[type="date"],
+body.dark select {
+  background-color: var(--color-input-background);
+  color: var(--color-text-dark);
+  border-color: var(--color-border);
+}
+body.dark input[type="text"]::placeholder,
+body.dark input[type="date"]::placeholder {
+  color: var(--color-text-light);
+}
 
-/* Progress */
-#progress-container {
-  width:100%; height:10px; background:#e0e0e0;
-  border-radius:10px; overflow:hidden; margin-bottom:1rem;
+/* Buttons */
+button {
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600; /* Bolder text for buttons */
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.2s ease-in-out;
+  padding: 0.8rem 1.2rem; /* Consistent padding */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
-#progress-bar {
-  height:100%; width:0;
-  background:linear-gradient(to right,#007bff,#28a745);
-  transition:width .3s ease-in-out;
+
+.primary-button {
+  background-color: var(--color-primary);
+  color: var(--color-card-background); /* White text */
+  box-shadow: 0 4px 8px rgba(107, 78, 230, 0.2);
 }
-#motivation {
-  text-align:center; font-weight:bold; margin-top:.5rem;
+.primary-button:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px); /* Slight lift on hover */
+  box-shadow: 0 6px 12px rgba(107, 78, 230, 0.3);
+}
+.primary-button:active {
+  transform: translateY(0);
+}
+
+.button-secondary {
+  background-color: var(--color-input-background);
+  color: var(--color-text-dark);
+  border: 1px solid var(--color-border);
+}
+.button-secondary:hover {
+  background-color: var(--color-border);
+  color: var(--color-primary); /* Highlight with primary color on hover */
+}
+.button-secondary.active {
+  background-color: var(--color-primary);
+  color: var(--color-card-background);
+  border-color: var(--color-primary);
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  color: var(--color-text-light);
+}
+.icon-button:hover {
+  color: var(--color-primary);
+  transform: scale(1.1);
+  background: none; /* Ensure no background on icon button hover */
+}
+.icon-button svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke-width: 2.5; /* Slightly thicker strokes for icons */
 }
 
 /* Filters */
 .filters {
-  display:flex; justify-content:space-between;
-  margin-bottom:1rem;
+  display: flex;
+  gap: 0.75rem; /* Space between filter buttons */
+  margin-bottom: 2rem;
+  justify-content: flex-start; /* Align filters to the left */
 }
-.filter {
-  padding:.5rem 1rem; border:none; background:#eee;
-  cursor:pointer; border-radius:6px;
+.filters button {
+  flex-grow: 1; /* Allow buttons to grow */
+  flex-basis: 0; /* Distribute space evenly */
 }
-.filter.active {
-  background:#007bff; color:#fff;
+@media (max-width: 480px) {
+  .filters {
+    flex-wrap: wrap; /* Wrap buttons on small screens */
+    justify-content: center;
+  }
+  .filters button {
+    flex-basis: auto; /* Auto width for wrapped buttons */
+  }
 }
 
-/* To-do items */
-#todo-list { list-style:none; }
+/* Todo List */
+#todo-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1.5rem; /* Space between filters and list */
+}
+
 .todo-item {
-  display:flex; align-items:center; background:#fafafa;
-  margin-bottom:.5rem; padding:.75rem; border-radius:6px;
-  cursor:grab; transition:background .2s;
+  background: var(--color-input-background);
+  margin-bottom: 0.75rem; /* Space between items */
+  padding: 1rem 1.25rem; /* Generous padding */
+  border-radius: 0.75rem; /* Consistent rounded corners */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: background 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 .todo-item.completed {
-  text-decoration:line-through; opacity:.6;
+  opacity: 0.7; /* Slightly dim completed items */
 }
-.todo-item button {
-  background:transparent; border:none; font-size:1.1rem;
-  color:#d11a2a; cursor:pointer;
-}
-.drag-handle { margin-right:.5rem; font-size:1.2rem; color:#aaa; }
-
-/* Dark mode */
-body.dark {
-  background:#121212; color:#e0e0e0;
-}
-body.dark .app { background:#1f1f1f; box-shadow:0 4px 12px rgba(255,255,255,.05); }
-body.dark input, body.dark select {
-  background:#2c2c2c; color:#fff; border:1px solid #555;
-}
-body.dark #add-btn { background:#28a745; }
-body.dark #add-btn:hover { background:#218838; }
-body.dark .filter { background:#333; color:#ccc; }
-body.dark .filter.active { background:#28a745; color:#fff; }
-body.dark .todo-item { background:#2a2a2a; }
-body.dark .todo-item button { color:#ff6666; }
-body.dark #theme-toggle { background:#444; }
-
-/* Mood themes inherit from body theme-... */
-body.theme-focus { background:#e8f5e9; color:#2e7d32; }
-body.theme-focus .todo-item { background:#e0f2f1; }
-body.theme-hype {
-  background:linear-gradient(120deg,#ff6f00,#ffca28); color:#000;
-}
-body.theme-hype .app { background:#fff3e0; }
-body.theme-hype .todo-item { background:#ffd180; }
-body.theme-hacker {
-  background:#000; color:#0f0;
-}
-body.theme-hacker .app,
-body.theme-hacker .todo-item { background:#111; }
-body.theme-hacker input,
-body.theme-hacker select,
-body.theme-hacker button {
-  background:#000; color:#0f0; border:1px solid #0f0;
-  font-family:monospace;
-}
-/* Make calendar icon visible in hacker mode */
-body.theme-hacker input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1) brightness(2);
+.todo-item.completed .todo-content strong {
+  text-decoration: line-through;
+  color: var(--color-text-light); /* Lighter color for completed text */
 }
 
-/* Flirty */
-body.theme-flirty {
-  background:#ffe6f0; color:#c2185b;
+.todo-content {
+  flex: 1;
 }
-body.theme-flirty .app,
-body.theme-flirty .todo-item {
-  background:#f8bbd0;
+.todo-content strong {
+  display: block; /* Make task text block level */
+  font-size: 1.1rem; /* Slightly larger task text */
+  font-weight: 500;
+  color: var(--color-text-dark);
+}
+.todo-meta {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  margin-top: 0.2rem;
+  display: flex; /* For inline icon and text */
+  align-items: center;
+  gap: 0.4rem; /* Space between icon and text */
+}
+.todo-meta .category-icon {
+  width: 1rem; /* Smaller icon for category */
+  height: 1rem;
+  stroke-width: 2;
+  color: var(--color-text-light); /* Category icon matches meta text color */
 }
 
-/* Daily dose banner */
-.daily-dose {
-  width:100%; overflow:hidden; white-space:nowrap;
-  font-weight:bold; margin-top:1rem; border-top:1px solid #ccc;
-  padding-top:.5rem;
-}
-.daily-dose-text {
-  display:inline-block; padding-left:100%;
-  animation:scroll-left 15s linear infinite;
-}
-@keyframes scroll-left {
-  0%   { transform: translateX(0%); }
-  100% { transform: translateX(-100%); }
-}
 
-/* Theme toggle button */
-#theme-toggle {
-  position:absolute; top:1rem; right:1rem;
-  padding:.5rem 1rem; border:none; background:#222;
-  color:#fff; border-radius:8px; cursor:pointer;
-  transition: background .3s;
-}
-#theme-toggle:hover { background:#444; }
-/* Style for the “Choose Mood” dropdown */
-#theme-select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  padding: 0.7rem 1rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #fff url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23666'/%3E%3C/svg%3E") no-repeat right 1rem center;
-  background-size: 0.6rem;
+/* Custom Checkbox */
+.checkbox-wrapper {
+  position: relative;
+  display: inline-flex; /* Use inline-flex for better alignment */
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* Larger clickable area for checkbox */
+  height: 24px;
   cursor: pointer;
-  transition: border-color 0.3s, background-color 0.3s;
-  margin-bottom: 1rem;
+  flex-shrink: 0; /* Prevent it from shrinking */
+}
+.checkbox-wrapper input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.checkmark {
+  height: 20px;
+  width: 20px;
+  background-color: var(--color-border); /* Light border for unchecked in light mode */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, border-color 0.2s;
+  border: 2px solid var(--color-border); /* Explicit border */
+}
+.checkbox-wrapper input[type="checkbox"]:checked + .checkmark {
+  background-color: var(--color-success); /* Use accent color for checked */
+  border-color: var(--color-success);
+}
+.checkmark::after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 3px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+}
+.checkbox-wrapper input[type="checkbox"]:checked + .checkmark::after {
+  display: block;
+}
+body.dark .checkmark {
+  /* FIX for dark mode checkbox visibility */
+  background-color: var(--color-text-dark); /* Make it visibly lighter than input/card background */
+  border-color: var(--color-border); /* Ensure a clear border */
 }
 
-#theme-select:hover {
-  border-color: #007bff;
+/* Progress Bar */
+#progress-container {
+  height: 12px; /* Slightly taller */
+  background: var(--color-border);
+  border-radius: 6px; /* Half of height for perfect pill shape */
+  overflow: hidden;
+  margin: 1.5rem 0; /* More vertical space */
+}
+#progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(to right, var(--color-accent), var(--color-primary)); /* Gradient with theme colors */
+  transition: width 0.4s ease-in-out;
+  border-radius: 6px; /* Inherit border-radius */
 }
 
-body.dark #theme-select {
-  background: #2c2c2c url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23aaa'/%3E%3C/svg%3E") no-repeat right 1rem center;
-  color: #fff;
-  border: 1px solid #555;
+/* Motivation Text */
+#motivation {
+  text-align: center;
+  font-size: 1.05rem; /* Slightly larger motivation text */
+  font-style: italic;
+  color: var(--color-text-light);
+  margin-top: 1.5rem;
+  font-weight: 500;
+}
+
+/* Daily Dose */
+.daily-dose {
+  margin-top: 2.5rem; /* More space from the app */
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  text-align: center;
+  opacity: 0.8; /* Slightly subdued */
+  width: 100%; /* Ensure marquee spans */
+}
+.daily-dose marquee {
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+body.dark .daily-dose marquee {
+  border-color: var(--color-border);
+}
+
+/* Mood Themes (Adjust these as needed for your specific moods) */
+body.theme-focus {
+  --color-primary: #4CAF50; /* Greenish */
+  --color-primary-dark: #3E8E41;
+  --color-accent: #FFC107; /* Yellow */
+}
+body.dark.theme-focus {
+  --color-primary: #8BC34A;
+  --color-primary-dark: #7CB342;
+  --color-accent: #FFEB3B;
+}
+
+body.theme-hype {
+  --color-primary: #FF5722; /* Orangey-red */
+  --color-primary-dark: #E64A19;
+  --color-accent: #03A9F4; /* Bright blue */
+}
+body.dark.theme-hype {
+  --color-primary: #FF8A65;
+  --color-primary-dark: #FF7043;
+  --color-accent: #4FC3F7;
+}
+
+body.theme-hacker {
+  --color-primary: #00FF00; /* Bright green */
+  --color-primary-dark: #00CC00;
+  --color-accent: #00FFFF; /* Cyan */
+  --color-text-dark: #00FF00;
+  --color-text-light: #00CC00;
+  --color-background-light: #1A1A1A;
+  --color-card-background: #0D0D0D;
+  --color-border: #004D00;
+  --color-input-background: #003300;
+}
+body.dark.theme-hacker { /* Hacker mode in dark is similar, but can be adjusted */
+  --color-primary: #00FF00;
+  --color-primary-dark: #00CC00;
+  --color-accent: #00FFFF;
+  --color-text-dark: #00FF00;
+  --color-text-light: #00CC00;
+  --color-background-light: #1A1A1A;
+  --color-card-background: #0D0D0D;
+  --color-border: #004D00;
+  --color-input-background: #003300;
+}
+
+body.theme-flirty {
+  --color-primary: #E91E63; /* Pink */
+  --color-primary-dark: #C2185B;
+  --color-accent: #FFD600; /* Gold */
+}
+body.dark.theme-flirty {
+  --color-primary: #F48FB1;
+  --color-primary-dark: #F06292;
+  --color-accent: #FFECB3;
+}
+
+/* Feather icon styling (default) */
+[data-feather] {
+  stroke: currentColor; /* Use text color for icons */
+  stroke-width: 2;
+  fill: none;
 }
