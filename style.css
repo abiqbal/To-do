@@ -185,3 +185,24 @@ body.dark #theme-select {
   color: #fff;
   border: 1px solid #555;
 }
+.top-left-select {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+.daily-dose {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #888;
+}
+
+#daily-dose-text {
+  color: #666;
+  font-style: italic;
+}
+
