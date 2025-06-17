@@ -9,14 +9,6 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 <body>
   <button id="theme-toggle">🌙 Dark Mode</button>
-     <select id="theme-select" style="margin-bottom: 1rem;">
-      <option value="">🧠 Choose Mood</option>
-      <option value="theme-focus">🧘 Zen Mode</option>
-      <option value="theme-hype">⚡ Hype Mode</option>
-      <option value="theme-hacker">💻 Hacker Mode</option>
-      <option value="theme-flirty">💖 Flirty Mode</option>
-    </select>
-
   <div class="app">
     <!-- Hyped Greeting -->
     <h2 id="user-greeting"></h2>
@@ -24,6 +16,13 @@
     <h1 id="app-title">🚀 SlayList</h1>
 
     <!-- Mood Picker -->
+    <select id="theme-select" style="margin-bottom: 1rem;">
+      <option value="">🧠 Choose Mood</option>
+      <option value="theme-focus">🧘 Zen Mode</option>
+      <option value="theme-hype">⚡ Hype Mode</option>
+      <option value="theme-hacker">💻 Hacker Mode</option>
+      <option value="theme-flirty">💖 Flirty Mode</option>
+    </select>
 
     <!-- INPUT ROW -->
     <div class="input-container">
@@ -58,7 +57,7 @@
 
     <!-- Daily Dose Banner -->
     <div id="daily-dose" class="daily-dose">
-     <marquee id="daily-dose-text"></marquee>
+      Daily Dose: <span id="daily-dose-text"></span>
     </div>
   </div>
 
