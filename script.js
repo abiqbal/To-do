@@ -57,6 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 3) Render stored todos
+  document.querySelectorAll('.filter').forEach(f => f.classList.remove('active'));
+  document.querySelector('[data-filter="active"]').classList.add('active');
+  currentFilter = 'active';
   renderTodos();
   updateDailyDose();
 });
@@ -205,21 +208,27 @@ function saveAndRender() {
 }
 
 // ===== PROGRESS BAR & CONFETTI =====
-function updateProgressBar() {
-  const bar   = document.getElementById('progress-bar');
+function updateProgress() {
   const total = todos.length;
-  const done  = todos.filter(t=>t.completed).length;
-  const pct   = total?Math.round(done/total*100):0;
-  bar.style.width = pct+'%';
+  const completed = todos.filter(t => t.completed).length;
+  const percent = total ? Math.round((completed / total) * 100) : 0;
 
-  motivationP.textContent = 
-    pct===0   ? "Let’s get started!" :
-    pct<50    ? "You're making moves 🔄" :
-    pct<100   ? "Almost there 🏁" :
-               "YOU DID IT 💥🔥";
+  document.getElementById('progress-bar').style.width = percent + "%";
 
-  if (pct===100) confetti({ particleCount:150, spread:70, origin:{ y:0.6 } });
+  let message = "✨ Ready to conquer?";
+  if (percent === 100) {
+    message = "🔥 You slayed every task!";
+  } else if (percent >= 75) {
+    message = "💪 You're almost done!";
+  } else if (percent >= 50) {
+    message = "🚀 Halfway warrior!";
+  } else if (percent > 0) {
+    message = "👣 You’ve taken the first steps.";
+  }
+
+  document.getElementById('motivation').textContent = message;
 }
+
 
 // ===== DRAG & DROP =====
 let dragged = null;
